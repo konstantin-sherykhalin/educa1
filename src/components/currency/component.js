@@ -62,7 +62,7 @@ export default class MainPage extends React.Component {
 					<p className="title">{state.data ? state.data.name : 'Валюта удалена'}</p>
 					{state.data ? (
 						<div className="rate_list">
-						<p>Последние значения курса:</p>
+						<p>Последние значения курса (автообновление каждые 10 секунд):</p>
 						{state.data.id && state.data.rates.map((rate,i) => (
 							<p key={i}>{Math.round(rate.value*1000)/1000}</p>
 						))}
