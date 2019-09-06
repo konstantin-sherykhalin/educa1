@@ -7,6 +7,7 @@ export default class MainPage extends React.Component {
 	state = {
 		id: 0,
 		data: {},
+		waiting: false,
 	};
 
 	async componentDidMount() {
@@ -18,11 +19,17 @@ export default class MainPage extends React.Component {
 			id,
 			data: data || false,
 		});
+
+		setInterval(this.load,10000);
 	}
 
 	// Загрузка данных
-	load = async (currency) => {
+	load = async () => {
+		let currency = this.state.data;
+
+		this.setState({waiting:true});
 		let {response,error} = await API('get_data',{id:currency.id,name:currency.name,last_value:currency.rates[currency.rates.length-1].value});
+
 		if(response) {
 			await this.setState(state => ({
 				data: {
@@ -39,6 +46,8 @@ export default class MainPage extends React.Component {
 		if(error) {
 			alert(error.message);
 		}
+
+		this.setState({waiting:false});
 	}
 
 	render() {
@@ -59,7 +68,7 @@ export default class MainPage extends React.Component {
 				</div>
 				{state.data && state.data.id ? (
 					<div className="right">
-						<button onClick={_=>this.load(state.data)}>{state.data.rates.length ? 'Обновить' : 'Загрузить'}</button>
+						<button disabled={state.waiting} onClick={this.load}>{state.data.rates.length ? 'Обновить' : 'Загрузить'}</button>
 					</div>
 				) : null}
 			</div>
