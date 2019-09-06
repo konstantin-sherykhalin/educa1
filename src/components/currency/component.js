@@ -20,7 +20,10 @@ export default class MainPage extends React.Component {
 			data: data || false,
 		});
 
-		setInterval(this.load,10000);
+		this.interval = setInterval(this.load,10000);
+	}
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	// Загрузка данных
