@@ -8,12 +8,14 @@ import Main		from './components/main';
 import Currency	from './components/currency';
 
 export default () => (
-	<Provider store={store}>
-	<BrowserRouter>
-	<Switch>
-		<Route path='/currency/:id'	component={Currency} />
-		<Route path='/'				component={Main} />
-	</Switch>
-	</BrowserRouter>
-	</Provider>
+	<div id="container">
+		<Provider store={store}>
+		<BrowserRouter>
+		<Switch>
+			<Route path='/currency/:id'	component={Currency} />
+			<Route path='/'				component={Main} />
+		</Switch>
+		</BrowserRouter>
+		</Provider>
+	</div>
 );
