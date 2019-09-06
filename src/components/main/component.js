@@ -84,7 +84,7 @@ export default class MainPage extends React.Component {
 		await this.setState(state => ({
 			list: [
 				...state.list,
-				...new_row,
+				new_row,
 			],
 			new_name: '',
 			new_value: '',
