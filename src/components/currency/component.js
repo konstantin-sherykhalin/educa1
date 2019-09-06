@@ -30,6 +30,8 @@ export default class MainPage extends React.Component {
 					rates: [...state.data.rates,...response.rates],
 				},
 			}));
+			this.props.fetch_rates({id:currency.id,rates:response.rates});
+
 			let st = JSON.parse(window.localStorage.getItem('educa'));
 			st.list = st.list.map(e => e.id==this.state.id ? this.state.data : e);
 			window.localStorage.setItem('educa',JSON.stringify(st));

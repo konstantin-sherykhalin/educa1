@@ -7,10 +7,10 @@ export const ReducerRecord = () => ({
 // Постоянные
 export const module_name = 'currency';
 
-export const LOAD	= config.name+'/'+module+'/LOAD';
-export const ADD	= config.name+'/'+module+'/ADD';
-export const DELETE	= config.name+'/'+module+'/DELETE';
-export const FETCH	= config.name+'/'+module+'/FETCH';
+export const LOAD	= config.name+'/'+module_name+'/LOAD';
+export const ADD	= config.name+'/'+module_name+'/ADD';
+export const DELETE	= config.name+'/'+module_name+'/DELETE';
+export const FETCH	= config.name+'/'+module_name+'/FETCH';
 
 // Редуктор
 export default function reducer(st = ReducerRecord(),action) {

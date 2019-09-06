@@ -12,12 +12,14 @@ export default class MainPage extends React.Component {
 
 	componentDidMount() {
 		// Обозначаем локальное хранилище
+		// window.localStorage.clear();
 		let st = JSON.parse(window.localStorage.getItem('educa'));
 		if(!st) {
 			st = this.get_default();
 			window.localStorage.setItem('educa',JSON.stringify(st));
 		}
 		this.setState({list:st.list});
+		this.props.load(st.list)
 	}
 
 	// Значения по умолчанию
@@ -69,28 +71,31 @@ export default class MainPage extends React.Component {
 	change_new_name  = (new_name)  => this.setState({new_name});
 	change_new_value = (new_value) => this.setState({new_value});
 	add_currency = async () => {
+		let new_row = {
+			id: this.state.list.length+1,
+			name: this.state.new_name,
+			rates: [
+				{
+					value: +this.state.new_value.replace(',','.'),
+					timestamp: +new Date(),
+				},
+			],
+		};
 		await this.setState(state => ({
 			list: [
 				...state.list,
-				{
-					id: state.list.length+1,
-					name: state.new_name,
-					rates: [
-						{
-							value: +state.new_value.replace(',','.'),
-							timestamp: +new Date(),
-						},
-					],
-				},
+				...new_row,
 			],
 			new_name: '',
 			new_value: '',
 		}));
+		this.props.add_row(new_row);
 		this.save();
 	}
 	// Удаление
 	remove_currency = async (id) => {
 		await this.setState(state => ({list:state.list.filter(e => e.id!=id)}));
+		this.props.delete_row(id);
 		this.save();
 	}
 
@@ -105,6 +110,7 @@ export default class MainPage extends React.Component {
 			await this.setState(state => ({
 				list: state.list.map(e => e.id==currency.id ? {...e,rates:[...e.rates,...response.rates]} : e),
 			}));
+			this.props.fetch_rates({id:currency.id,rates:response.rates});
 			this.save();
 		}
 		if(error) {
