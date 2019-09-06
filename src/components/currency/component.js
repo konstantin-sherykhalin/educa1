@@ -16,7 +16,7 @@ export default class MainPage extends React.Component {
 		let data = st.list.find(e => e.id==id);
 		this.setState({
 			id,
-			data: data || {},
+			data: data || false,
 		});
 	}
 
@@ -41,23 +41,24 @@ export default class MainPage extends React.Component {
 
 	render() {
 		let {props,state} = this;
-		console.log(state.data);
 
 		return (
 			<div className="currency_item existing">
 				<div className="left">
-					<p className="title">{state.data.name}</p>
-					<div className="rate_list">
-					<p>Последние значения курса:</p>
-					{state.data.id && state.data.rates.map((rate,i) => (
-						<p key={i}>{Math.round(rate.value*1000)/1000}</p>
-					))}
+					<p className="title">{state.data ? state.data.name : 'Валюта удалена'}</p>
+					{state.data ? (
+						<div className="rate_list">
+						<p>Последние значения курса:</p>
+						{state.data.id && state.data.rates.map((rate,i) => (
+							<p key={i}>{Math.round(rate.value*1000)/1000}</p>
+						))}
+						</div>
+					) : null}
+				</div>
+				{state.data && state.data.id ? (
+					<div className="right">
+						<button onClick={_=>this.load(state.data)}>{state.data.rates.length ? 'Обновить' : 'Загрузить'}</button>
 					</div>
-				</div>
-				{state.data.id ? (
-				<div className="right">
-					<button onClick={_=>this.load(state.data)}>{state.data.rates.length ? 'Обновить' : 'Загрузить'}</button>
-				</div>
 				) : null}
 			</div>
 		);

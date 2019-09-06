@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter,Switch,Route} from 'react-router-dom';
+import {HashRouter,Switch,Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import store from './redux';
@@ -10,12 +10,12 @@ import Currency	from './components/currency';
 export default () => (
 	<div id="container">
 		<Provider store={store}>
-		<BrowserRouter>
+		<HashRouter>
 		<Switch>
 			<Route path='/currency/:id'	component={Currency} />
 			<Route path='/'				component={Main} />
 		</Switch>
-		</BrowserRouter>
+		</HashRouter>
 		</Provider>
 	</div>
 );
