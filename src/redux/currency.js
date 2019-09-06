@@ -5,7 +5,7 @@ export const ReducerRecord = () => ({
 });
 
 // Постоянные
-export const module	= 'money';
+export const module_name = 'currency';
 
 export const LOAD	= config.name+'/'+module+'/LOAD';
 export const ADD	= config.name+'/'+module+'/ADD';
