@@ -14,24 +14,21 @@ export default async function API(method,data = {}) {
 
         // Нормально
         } else {
+			let last_value = data.last_value;
+			let rates = [];
+			for(let i=0; i<3; i++) {
+				last_value = last_value-0.01+0.02*Math.random()
+				rates.push({
+					value:		last_value,
+					timestamp:	+new Date()-2000,
+				});
+			}
+			// Типа вот это с сервера получили
             return {
-                result: {
-                    id:     data.id,
-                    name:   data.name,
-                    rates: [
-                        {
-                            value:		1.10+0.02*Math.random(),
-                            timestamp:	+new Date()-2000,
-                        },
-                        {
-                            value:		1.10-0.02*Math.random(),
-                            timestamp:	+new Date()-1000,
-                        },
-                        {
-                            value:		1.09+0.02*Math.random(),
-                            timestamp:	+new Date(),
-                        },
-                    ],
+                response: {
+                    id: data.id,
+                    name: data.name,
+                    rates,
                 },
             };
         }

@@ -19,6 +19,10 @@ div {
 p {
 	margin: 0;
 }
+a {
+	color: unset;
+	text-decoration: none;
+}
 
 button {
 	width: 100%;
@@ -34,6 +38,10 @@ button:hover {
 button[disabled],button.disabled {
 	cursor: default;
 	opacity: 0.5;
+}
+input[type=text] {
+	padding: 9px;
+	font-size: 20px;
 }
 input:focus,button:focus,select:focus {
 	outline: 0;
@@ -53,38 +61,56 @@ input:focus,button:focus,select:focus {
 
 #currency_list {
 	width: 100%;
+}
 
-	.item {
-		flex-direction: row;
-		justify-content: space-between;
-		margin: 15px 0px; padding: 10px;
-		border: 2px solid #ededed; border-radius: 5px;
-		background: #fff;
+.currency_item {
+	flex-direction: row;
+	justify-content: space-between;
+	min-width: 512px;
+	margin: 15px 0px; padding: 10px;
+	border: 2px solid #ededed; border-radius: 5px;
+	background: #fff;
 
-		.left {
-			flex: 1;
-			flex-direction: column;
+	.left {
+		flex: 1;
+		flex-direction: column;
 
-			p.title {
-				margin-bottom: 8px;
-				font-size: 32px;
-			}
-			.rate_list {
-				p {
-					font-size: 20px;
-				}
+		p.title {
+			width: fit-content;
+			margin-bottom: 8px;
+			border-bottom: 2px solid transparent;
+			font-size: 32px;
+		}
+		.rate_list {
+			p {
+				font-size: 20px;
+				line-height: 1.2em;
 			}
 		}
-		.right {
+		.inputs {
 			flex-direction: row;
 
-			button {
-				height: min-content;
-				margin-left: 10px;
+			input:first-child {
+				flex: 9;
+			}
+			input:nth-child(2) {
+				flex: 1;
 			}
 		}
 	}
-	.item:hover {
-		box-shadow: 0px 0px 10px 5px #ddd;
+	.right {
+		flex-direction: row;
+
+		button {
+			height: min-content;
+			margin-left: 10px;
+		}
+	}
+	&.existing:hover {
+		box-shadow: 0px 0px 10px 5px #e5e5e5;
+
+		p.title:hover {
+			border-bottom: 2px solid #444;
+		}
 	}
 }
