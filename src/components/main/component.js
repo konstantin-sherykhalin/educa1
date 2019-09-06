@@ -62,6 +62,9 @@ export default class MainPage extends React.Component {
 		],
 	});
 
+	// Сохранение в локальное хранилище
+	save = () => window.localStorage.setItem('educa',JSON.stringify({list:this.state.list}));
+
 	// Новая валюта
 	change_new_name  = (new_name)  => this.setState({new_name});
 	change_new_value = (new_value) => this.setState({new_value});
@@ -83,7 +86,12 @@ export default class MainPage extends React.Component {
 			new_name: '',
 			new_value: '',
 		}));
-		window.localStorage.setItem('educa',JSON.stringify({list:this.state.list}));
+		this.save();
+	}
+	// Удаление
+	remove_currency = async (id) => {
+		await this.setState(state => ({list:state.list.filter(e => e.id!=id)}));
+		this.save();
 	}
 
 	// Загрузка данных
@@ -97,7 +105,7 @@ export default class MainPage extends React.Component {
 			await this.setState(state => ({
 				list: state.list.map(e => e.id==currency.id ? {...e,rates:[...e.rates,...response.rates]} : e),
 			}));
-			window.localStorage.setItem('educa',JSON.stringify({list:this.state.list}));
+			this.save();
 		}
 		if(error) {
 			alert(error.message);
@@ -122,7 +130,7 @@ export default class MainPage extends React.Component {
 					</div>
 					<div className="right">
 						<button onClick={_=>this.load(e)}>{e.rates.length ? 'Обновить' : 'Загрузить'}</button>
-						<button>Удалить</button>
+						<button onClick={_=>this.remove_currency(e.id)}>Удалить</button>
 					</div>
 				</div>
 				))}
