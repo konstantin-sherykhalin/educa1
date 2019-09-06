@@ -41,6 +41,7 @@ button[disabled],button.disabled {
 }
 input[type=text] {
 	padding: 9px;
+	border: 2px solid #eee;
 	font-size: 20px;
 }
 input:focus,button:focus,select:focus {
@@ -66,7 +67,7 @@ input:focus,button:focus,select:focus {
 .currency_item {
 	flex-direction: row;
 	justify-content: space-between;
-	min-width: 512px;
+	min-width: 512px; max-width: 100%;
 	margin: 15px 0px; padding: 10px;
 	border: 2px solid #ededed; border-radius: 5px;
 	background: #fff;
@@ -113,4 +114,45 @@ input:focus,button:focus,select:focus {
 			border-bottom: 2px solid #444;
 		}
 	}
+}
+
+@media(max-width:425px) {
+#container {
+	min-width: unset; width: 100%;
+}
+.currency_item {
+	flex-direction: column;
+	min-width: 100%;
+
+	.left {
+		.inputs {
+			flex-direction: column;
+
+			input:first-child {
+				flex: 1;
+			}
+			input:nth-child(2) {
+				flex: 1;
+			}
+		}
+	}
+
+	.right {
+		width: 100%;
+		margin: 10px 0px 5px;
+
+		button {
+			margin: 0px;
+		}
+		button:nth-child(2) {
+			margin-left: 10px;
+		}
+	}
+}
+.currency_item:first-child {
+	margin-top: 0;
+}
+.currency_item:last-child {
+	margin-bottom: 0;
+}
 }
